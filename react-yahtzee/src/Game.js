@@ -14,19 +14,19 @@ class Game extends Component {
       locked: Array(NUM_DICE).fill(false),
       rollsLeft: NUM_ROLLS,
       scores: {
-        ones: undefined,
-        twos: undefined,
-        threes: undefined,
-        fours: undefined,
-        fives: undefined,
-        sixes: undefined,
-        threeOfKind: undefined,
-        fourOfKind: undefined,
-        fullHouse: undefined,
-        smallStraight: undefined,
-        largeStraight: undefined,
-        yahtzee: undefined,
-        chance: undefined,
+        ones: 'Score 1 for every 1',
+        twos: 'Score 2 for every 2',
+        threes: 'Score 3 for every 3',
+        fours: 'Score 4 for every 4',
+        fives: 'Score 5 for every 5',
+        sixes: 'Score 6 for every 6',
+        threeOfKind: 'Sum all dice if 3 of one value',
+        fourOfKind: 'Sum all dice if 4 of one value',
+        fullHouse: 'If full house, score 25',
+        smallStraight: 'If 4+ values in a row, score 30',
+        largeStraight: 'If 5 values in a row, score 40',
+        yahtzee: 'If all values match, score 50',
+        chance: 'Score sum of all dice',
       },
     };
   }
@@ -57,7 +57,7 @@ class Game extends Component {
 
   doScore = (rulename, ruleFn) => {
     // evaluate this ruleFn with the dice and score this rulename
-    if (this.state.scores[rulename] === undefined) {
+    if (typeof this.state.scores[rulename] === 'string') {
       this.setState((st) => ({
         scores: { ...st.scores, [rulename]: ruleFn(this.state.dice) },
         rollsLeft: NUM_ROLLS,
