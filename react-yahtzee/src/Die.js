@@ -22,7 +22,7 @@ class Die extends Component {
         style={{ backgroundColor: this.props.locked ? 'grey' : 'black' }}
         onClick={this.handleClick}
       >
-        <i class={`fas fa-dice-${this.props[this.props.val]}`}></i>
+        <i className={`fas fa-dice-${this.props[this.props.val]}`}></i>
       </button>
     );
   }
