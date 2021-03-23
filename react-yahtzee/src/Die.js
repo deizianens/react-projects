@@ -16,15 +16,10 @@ class Die extends Component {
   };
 
   render() {
-    return (
-      <button
-        className={'Die'}
-        style={{ backgroundColor: this.props.locked ? 'grey' : 'black' }}
-        onClick={this.handleClick}
-      >
-        <i className={`fas fa-dice-${this.props[this.props.val]}`}></i>
-      </button>
-    );
+    let classes = `Die fas fa-dice-${this.props[this.props.val]} fa-5x`;
+    if (this.props.locked) classes += ' Die-locked';
+
+    return <i className={classes} onClick={this.handleClick} />;
   }
 }
 
