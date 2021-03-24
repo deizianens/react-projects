@@ -90,6 +90,7 @@ class Game extends Component {
   }
 
   render() {
+    const { dice, locked, rolling, scores } = this.state;
     return (
       <div className='Game'>
         <header className='Game-header'>
@@ -97,17 +98,15 @@ class Game extends Component {
 
           <section className='Game-dice-section'>
             <Dice
-              dice={this.state.dice}
-              locked={this.state.locked}
+              dice={dice}
+              locked={locked}
               handleClick={this.toggleLocked}
-              rolling={this.state.rolling}
+              rolling={rolling}
             />
             <div className='Game-button-wrapper'>
               <button
                 className='Game-reroll'
-                disabled={
-                  this.state.locked.every((x) => x) || this.state.rolling
-                }
+                disabled={locked.every((x) => x) || rolling}
                 onClick={this.animateRoll}
               >
                 {this.displayRollInfo()}
@@ -115,7 +114,7 @@ class Game extends Component {
             </div>
           </section>
         </header>
-        <ScoreTable doScore={this.doScore} scores={this.state.scores} />
+        <ScoreTable doScore={this.doScore} scores={scores} />
       </div>
     );
   }

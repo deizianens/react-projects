@@ -76,6 +76,8 @@ class SmallStraight {
     // or 345 + either 2 or 6
     if (d.has(3) && d.has(4) && d.has(5) && (d.has(2) || d.has(6)))
       return this.score;
+
+    return 0;
   };
 }
 
