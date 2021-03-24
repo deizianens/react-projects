@@ -105,7 +105,9 @@ class Game extends Component {
             <div className='Game-button-wrapper'>
               <button
                 className='Game-reroll'
-                disabled={this.state.locked.every((x) => x)}
+                disabled={
+                  this.state.locked.every((x) => x) || this.state.rolling
+                }
                 onClick={this.animateRoll}
               >
                 {this.displayRollInfo()}
