@@ -28,8 +28,19 @@ class Game extends Component {
         yahtzee: 'If all values match, score 50',
         chance: 'Score sum of all dice',
       },
+      rolling: false,
     };
   }
+
+  componentDidMount() {
+    this.animateRoll();
+  }
+
+  animateRoll = () => {
+    this.setState({ rolling: true }, () => {
+      setTimeout(this.roll, 1000);
+    });
+  };
 
   roll = (evt) => {
     // roll dice whose indexes are in reroll
@@ -39,12 +50,13 @@ class Game extends Component {
       ),
       locked: st.rollsLeft > 1 ? st.locked : Array(NUM_DICE).fill(true),
       rollsLeft: st.rollsLeft - 1,
+      rolling: false,
     }));
   };
 
   toggleLocked = (idx) => {
     // toggle whether idx is in locked or not
-    if (this.state.rollsLeft > 0) {
+    if (this.state.rollsLeft > 0 && !this.state.rolling) {
       this.setState((st) => ({
         locked: [
           ...st.locked.slice(0, idx),
@@ -63,8 +75,19 @@ class Game extends Component {
       rollsLeft: NUM_ROLLS,
       locked: Array(NUM_DICE).fill(false),
     }));
-    this.roll();
+    this.animateRoll();
   };
+
+  displayRollInfo() {
+    const messages = [
+      '0 Rolls Left',
+      '1 Roll Left',
+      '2 Rolls Left',
+      'Starting Round',
+    ];
+
+    return messages[this.state.rollsLeft];
+  }
 
   render() {
     return (
@@ -77,14 +100,15 @@ class Game extends Component {
               dice={this.state.dice}
               locked={this.state.locked}
               handleClick={this.toggleLocked}
+              rolling={this.state.rolling}
             />
             <div className='Game-button-wrapper'>
               <button
                 className='Game-reroll'
                 disabled={this.state.locked.every((x) => x)}
-                onClick={this.roll}
+                onClick={this.animateRoll}
               >
-                {this.state.rollsLeft} Rerolls Left
+                {this.displayRollInfo()}
               </button>
             </div>
           </section>
