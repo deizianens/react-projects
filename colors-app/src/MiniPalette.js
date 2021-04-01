@@ -45,7 +45,7 @@ const styles = {
 
 class MiniPalette extends Component {
   render() {
-    const { classes, paletteName, emoji, colors } = this.props;
+    const { classes, paletteName, emoji, colors, handleClick } = this.props;
     const miniColorBoxes = colors.map((color) => {
       return (
         <div
@@ -58,7 +58,7 @@ class MiniPalette extends Component {
 
     console.log(classes);
     return (
-      <div className={classes.root}>
+      <div className={classes.root} onClick={handleClick}>
         <div className={classes.colors}>{miniColorBoxes}</div>
         <h5 className={classes.title}>
           {paletteName}
