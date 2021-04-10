@@ -25,6 +25,7 @@ const styles = (theme) => ({
     }),
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     height: '64px',
   },
   appBarShift: {
@@ -39,10 +40,31 @@ const styles = (theme) => ({
     marginLeft: 12,
     marginRight: 20,
   },
-  navBtn: {},
+  navBtn: {
+    marginRight: '1rem',
+    '& a': {
+      textDecoration: 'none',
+    },
+  },
+  button: {
+    margin: '0 0.5rem',
+  },
 });
 
 class PaletteFormNav extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      formShowing: false,
+    };
+  }
+
+  showForm = () => {
+    this.setState({
+      formShowing: true,
+    });
+  };
+
   render() {
     const {
       classes,
@@ -51,6 +73,8 @@ class PaletteFormNav extends Component {
       palettes,
       handleSubmit,
     } = this.props;
+
+    const { formShowing } = this.state;
     return (
       <div className='root'>
         <CssBaseline />
@@ -75,14 +99,28 @@ class PaletteFormNav extends Component {
             </Typography>
           </Toolbar>
           <div className={classes.navBtn}>
-            <PaletteModal palettes={palettes} handleSubmit={handleSubmit} />
             <Link to='/'>
-              <Button variant='contained' color='secondary'>
+              <Button
+                variant='contained'
+                color='secondary'
+                className={classes.button}
+              >
                 Go back
               </Button>
             </Link>
+            <Button
+              variant='contained'
+              color='primary'
+              onClick={this.showForm}
+              className={classes.button}
+            >
+              Save
+            </Button>
           </div>
         </AppBar>
+        {formShowing && (
+          <PaletteModal palettes={palettes} handleSubmit={handleSubmit} />
+        )}
       </div>
     );
   }
