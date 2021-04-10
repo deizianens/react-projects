@@ -39,15 +39,16 @@ class PaletteModal extends Component {
 
   render() {
     const { newPaletteName } = this.state;
+    const { hideForm, handleSubmit } = this.props;
 
     return (
       <Dialog
         open={this.state.open}
-        onClose={this.handleClose}
+        onClose={hideForm}
         aria-labelledby='form-dialog-title'
       >
         <DialogTitle id='form-dialog-title'>Choose a palette name</DialogTitle>
-        <ValidatorForm onSubmit={() => this.props.handleSubmit(newPaletteName)}>
+        <ValidatorForm onSubmit={() => handleSubmit(newPaletteName)}>
           <DialogContent>
             <DialogContentText>
               Please enter a name for your new palette. Make sure it's unique.
@@ -65,7 +66,7 @@ class PaletteModal extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color='primary'>
+            <Button onClick={hideForm} color='primary'>
               Cancel
             </Button>
             <Button variant='contained' color='primary' type='submit'>
